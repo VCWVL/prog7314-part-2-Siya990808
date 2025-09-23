@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:padding="16dp">
+
+    <!-- ===== MAIN CONTENT CONTAINER ===== -->
+    <!-- Centered vertical layout for all sign-in form elements -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center_horizontal">
+
+        <!-- ===== APPLICATION LOGO SECTION ===== -->
+        <!-- Displays the app logo at the top of the sign-in screen -->
+        <ImageView
+            android:id="@+id/logo"
+            android:layout_width="160dp"
+            android:layout_height="160dp"
+            android:layout_marginTop="24dp"
+            android:src="@mipmap/ic_logobuzzing"
+            android:contentDescription="@string/app_name" />
+
+        <!-- ===== PAGE TITLE SECTION ===== -->
+        <!-- Main heading for the sign-in page (Note: says "Sign In" but has sign up elements) -->
+        <TextView
+            android:id="@+id/tvSignUpTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sign In :"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:layout_marginTop="16dp"
+            android:textColor="@android:color/black" />
+
+        <!-- ===== USERNAME INPUT SECTION ===== -->
+        <!-- Label for username field -->
+        <TextView
+            android:id="@+id/tvUsernameLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="USERNAME :"
+            android:layout_marginTop="12dp"
+            android:textSize="14sp"
+            android:textColor="@android:color/black" />
+
+        <!-- Input field for username with light yellow background -->
+        <EditText
+            android:id="@+id/etUsername"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#FFF9C4"
+            android:hint="Jia Ranjan"
+            android:padding="12dp"
+            android:textColor="@android:color/black"
+            android:textStyle="bold"
+            android:layout_marginTop="6dp"/>
+
+        <!-- ===== EMAIL INPUT SECTION ===== -->
+        <!-- Label for email field -->
+        <TextView
+            android:id="@+id/tvEmailLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="EMAIL"
+            android:layout_marginTop="16dp"
+            android:textSize="14sp"
+            android:textColor="@android:color/black" />
+
+        <!-- Input field for email address with email keyboard type -->
+        <EditText
+            android:id="@+id/etEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#FFF9C4"
+            android:hint="hello@reallygreatsite.com"
+            android:padding="12dp"
+            android:inputType="textEmailAddress"
+            android:textColor="@android:color/black"
+            android:textStyle="bold"
+            android:layout_marginTop="6dp"/>
+
+        <!-- ===== PASSWORD INPUT SECTION ===== -->
+        <!-- Label for password field -->
+        <TextView
+            android:id="@+id/tvPasswordLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="PASSWORD"
+            android:layout_marginTop="16dp"
+            android:textSize="14sp"
+            android:textColor="@android:color/black" />
+
+        <!-- Input field for password with hidden text display -->
+        <EditText
+            android:id="@+id/etPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#FFF9C4"
+            android:hint="********"
+            android:padding="12dp"
+            android:inputType="textPassword"
+            android:textColor="@android:color/black"
+            android:layout_marginTop="6dp"/>
+
+        <!-- ===== REGISTRATION REDIRECTION BUTTON ===== -->
+        <!-- Button to redirect users to sign-up page if they need an account -->
+        <!-- NOTE: This button has Google icon but text suggests it's for registration -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnNeedToSignUp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Need to sign up ? click here"
+            android:textColor="@android:color/black"
+            android:icon="@drawable/ic_google"
+            android:iconGravity="textStart"
+            android:layout_marginTop="24dp"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton" />
+
+        <!-- ===== GOOGLE SIGN-IN BUTTON ===== -->
+        <!-- Button for signing in with Google account -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnGoogleSignUp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Sign up with Google"
+            android:textColor="@android:color/black"
+            android:icon="@drawable/ic_google"
+            android:iconGravity="textStart"
+            android:layout_marginTop="24dp"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton" />
+
+        <!-- ===== GITHUB SIGN-IN BUTTON ===== -->
+        <!-- Button for signing in with GitHub account -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnGithubSignUp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Sign up with Github"
+            android:textColor="@android:color/black"
+            android:icon="@drawable/ic_github"
+            android:iconGravity="textStart"
+            android:layout_marginTop="12dp"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton" />
+
+    </LinearLayout>
+</ScrollView>
