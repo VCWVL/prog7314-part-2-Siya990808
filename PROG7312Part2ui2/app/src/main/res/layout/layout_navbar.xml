@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="65dp"
+    android:orientation="horizontal"
+    android:background="@drawable/black_rectangle_navbar"
+    android:gravity="center_vertical">
+
+    <!-- Left Icon - Tasks -->
+    <FrameLayout
+        android:id="@+id/nav_tasks"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="?android:attr/selectableItemBackground">
+
+        <ImageView
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_gravity="center"
+            android:src="@drawable/add_task_navbar_icon"
+            android:contentDescription="Tasks"
+            android:scaleType="fitCenter" />
+    </FrameLayout>
+
+    <!-- Center Icon - Calendar with Circle Background -->
+    <FrameLayout
+        android:id="@+id/nav_calendar"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:clickable="true"
+        android:focusable="true">
+
+        <!-- Black circle background - make sure this is visible -->
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:src="@drawable/black_circle_navbar"
+            android:contentDescription="Calendar Background" />
+
+        <!-- Calendar icon on top of circle -->
+        <ImageView
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:layout_gravity="center"
+            android:src="@drawable/calander_icon"
+            android:contentDescription="Calendar"
+            android:scaleType="fitCenter" />
+    </FrameLayout>
+
+    <!-- Right Icon - Marketplace -->
+    <FrameLayout
+        android:id="@+id/nav_marketplace"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="?android:attr/selectableItemBackground">
+
+        <ImageView
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_gravity="center"
+            android:src="@drawable/marketplace_icon"
+            android:contentDescription="Marketplace"
+            android:scaleType="fitCenter" />
+    </FrameLayout>
+
+</LinearLayout>

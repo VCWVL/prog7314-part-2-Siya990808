@@ -1,187 +1,292 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#f5f5f5"
-    android:padding="16dp">
+    android:background="@android:color/white">
 
-    <!-- Main container for all form elements -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+    <!-- Main Content Area -->
+    <ScrollView
+        android:id="@+id/main_content"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/navigation_bar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
 
-        <!-- ===== PAGE HEADER SECTION ===== -->
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Add Task"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            android:textColor="#000000"
-            android:gravity="center"
-            android:layout_marginBottom="24dp" />
-
-        <!-- ===== TITLE INPUT SECTION ===== -->
-        <!-- Label for title field -->
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Title"
-            android:textSize="16sp"
-            android:textColor="#000000"
-            android:layout_marginBottom="4dp" />
-
-        <!-- Input field for task title -->
-        <EditText
-            android:id="@+id/etTitle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/edittext_background"
-            android:padding="12dp"
-            android:textSize="16sp"
-            android:layout_marginBottom="16dp" />
-
-        <!-- ===== DATE/TIME INPUT SECTION ===== -->
-        <!-- Label for date/time field -->
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Date/Time"
-            android:textSize="16sp"
-            android:textColor="#000000"
-            android:layout_marginBottom="4dp" />
-
-        <!-- Input field for date and time selection -->
-        <EditText
-            android:id="@+id/etDateTime"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/edittext_background"
-            android:padding="12dp"
-            android:textSize="16sp"
-            android:layout_marginBottom="16dp"
-            android:hint="Select date and time" />
-
-        <!-- ===== LOCATION INPUT SECTION ===== -->
-        <!-- Label for location field -->
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Location"
-            android:textSize="16sp"
-            android:textColor="#000000"
-            android:layout_marginBottom="4dp" />
-
-        <!-- Input field for task location -->
-        <EditText
-            android:id="@+id/etLocation"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/edittext_background"
-            android:padding="12dp"
-            android:textSize="16sp"
-            android:layout_marginBottom="16dp" />
-
-        <!-- ===== LINKED CLASS INPUT SECTION ===== -->
-        <!-- Label for linked class field -->
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Linked Class"
-            android:textSize="16sp"
-            android:textColor="#000000"
-            android:layout_marginBottom="4dp" />
-
-        <!-- Input field for associated class/course -->
-        <EditText
-            android:id="@+id/etLinkedClass"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/edittext_background"
-            android:padding="12dp"
-            android:textSize="16sp"
-            android:layout_marginBottom="16dp" />
-
-        <!-- ===== DESCRIPTION INPUT SECTION ===== -->
-        <!-- Label for description field -->
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Description"
-            android:textSize="16sp"
-            android:textColor="#000000"
-            android:layout_marginBottom="4dp" />
-
-        <!-- Multi-line input field for task description -->
-        <EditText
-            android:id="@+id/etDescription"
-            android:layout_width="match_parent"
-            android:layout_height="120dp"
-            android:background="@drawable/edittext_background"
-            android:padding="12dp"
-            android:textSize="16sp"
-            android:gravity="top"
-            android:inputType="textMultiLine"
-            android:layout_marginBottom="16dp" />
-
-        <!-- ===== RECURRENCE INPUT SECTION ===== -->
-        <!-- Label for recurrence field -->
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Recurrence"
-            android:textSize="16sp"
-            android:textColor="#000000"
-            android:layout_marginBottom="4dp" />
-
-        <!-- Input field for recurrence pattern selection -->
-        <EditText
-            android:id="@+id/etRecurrence"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/edittext_background"
-            android:padding="12dp"
-            android:textSize="16sp"
-            android:layout_marginBottom="32dp"
-            android:hint="Select recurrence pattern" />
-
-        <!-- ===== ACTION BUTTONS SECTION ===== -->
-        <!-- Container for Cancel and Save buttons -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center">
+            android:orientation="vertical"
+            android:padding="20dp">
 
-            <!-- Cancel button - discards the form -->
-            <Button
-                android:id="@+id/btnCancel"
-                android:layout_width="0dp"
+            <!-- Top Bar with Menu, Title -->
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Cancel"
-                android:textAllCaps="false"
-                android:background="@drawable/button_cancel_background"
-                android:textColor="#FFFFFF"
-                android:layout_marginEnd="8dp"
-                android:textSize="16sp" />
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginTop="40dp"
+                android:layout_marginBottom="40dp">
 
-            <!-- Save button - submits the form data -->
-            <Button
-                android:id="@+id/btnSave"
-                android:layout_width="0dp"
+                <ImageButton
+                    android:id="@+id/menu_button"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:background="@android:color/transparent"
+                    android:src="@drawable/menu_icon"
+                    android:contentDescription="Menu"
+                    android:scaleType="fitCenter" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Study Hive"
+                    android:textColor="#000000"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    android:gravity="center" />
+
+                <View
+                    android:layout_width="32dp"
+                    android:layout_height="32dp" />
+            </LinearLayout>
+
+            <!-- Add Task Title -->
+            <TextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Save"
-                android:textAllCaps="false"
-                android:background="@drawable/button_save_background"
-                android:textColor="#FFFFFF"
-                android:layout_marginStart="8dp"
-                android:textSize="16sp" />
+                android:text="Add Task"
+                android:textColor="#000000"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="32dp" />
+
+            <!-- Task Title Input -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Title:"
+                android:textColor="#000000"
+                android:textSize="16sp"
+                android:layout_marginBottom="8dp" />
+
+            <EditText
+                android:id="@+id/task_title_input"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:background="@drawable/input_field_background"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:hint="Enter task title"
+                android:textSize="16sp"
+                android:layout_marginBottom="24dp" />
+
+            <!-- All Day Toggle -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="16dp">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@android:drawable/ic_menu_today"
+                    android:layout_marginEnd="12dp" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="All Day:"
+                    android:textColor="#000000"
+                    android:textSize="16sp" />
+
+                <Switch
+                    android:id="@+id/all_day_switch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="false" />
+            </LinearLayout>
+
+            <!-- Time Selection -->
+            <LinearLayout
+                android:id="@+id/time_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="24dp">
+
+                <TextView
+                    android:id="@+id/start_time_text"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/time_picker_background"
+                    android:text="7:00 am"
+                    android:textColor="#000000"
+                    android:textSize="16sp"
+                    android:gravity="center"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:layout_marginEnd="8dp" />
+
+                <View
+                    android:layout_width="24dp"
+                    android:layout_height="2dp"
+                    android:background="#CCCCCC" />
+
+                <TextView
+                    android:id="@+id/end_time_text"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/time_picker_background"
+                    android:text="20:00 pm"
+                    android:textColor="#000000"
+                    android:textSize="16sp"
+                    android:gravity="center"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:layout_marginStart="8dp" />
+            </LinearLayout>
+
+            <!-- Class Input -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Class:"
+                android:textColor="#000000"
+                android:textSize="16sp"
+                android:layout_marginBottom="8dp" />
+
+            <EditText
+                android:id="@+id/class_input"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:background="@drawable/input_field_background"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:hint="Enter class name"
+                android:textSize="16sp"
+                android:layout_marginBottom="24dp" />
+
+            <!-- Location Input -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Location:"
+                android:textColor="#000000"
+                android:textSize="16sp"
+                android:layout_marginBottom="8dp" />
+
+            <EditText
+                android:id="@+id/location_input"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:background="@drawable/input_field_background"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:hint="Enter location"
+                android:textSize="16sp"
+                android:layout_marginBottom="24dp" />
+
+            <!-- Recurring Toggle -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="24dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Recurring"
+                    android:textColor="#000000"
+                    android:textSize="16sp" />
+
+                <Switch
+                    android:id="@+id/recurring_switch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="false" />
+            </LinearLayout>
+
+            <!-- Description Input -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Description"
+                android:textColor="#000000"
+                android:textSize="16sp"
+                android:layout_marginBottom="8dp" />
+
+            <EditText
+                android:id="@+id/description_input"
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:background="@drawable/input_field_background"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:paddingTop="16dp"
+                android:paddingBottom="16dp"
+                android:hint="Enter task description"
+                android:textSize="16sp"
+                android:gravity="top"
+                android:inputType="textMultiLine"
+                android:lines="4"
+                android:layout_marginBottom="40dp" />
+
+            <!-- Action Buttons -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:layout_marginBottom="20dp">
+
+                <Button
+                    android:id="@+id/save_button"
+                    android:layout_width="120dp"
+                    android:layout_height="48dp"
+                    android:background="@drawable/save_button_background"
+                    android:text="Save"
+                    android:textColor="#000000"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:layout_marginEnd="20dp" />
+
+                <Button
+                    android:id="@+id/cancel_button"
+                    android:layout_width="120dp"
+                    android:layout_height="48dp"
+                    android:background="@drawable/cancel_button_background"
+                    android:text="Cancel"
+                    android:textColor="#000000"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:layout_marginStart="20dp" />
+            </LinearLayout>
 
         </LinearLayout>
+    </ScrollView>
 
-    </LinearLayout>
+    <!-- Navigation Bar -->
+    <include
+        android:id="@+id/navigation_bar"
+        layout="@layout/layout_navbar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent" />
 
-</ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

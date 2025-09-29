@@ -12,30 +12,29 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PROG7312Part2ui">
         <activity
-            android:name=".Add_Tasks"
-            android:exported="false" />
-        <activity
-            android:name=".Tasks"
-            android:exported="false" />
-        <activity
-            android:name=".Calendar"
-            android:exported="false" />
-        <activity
-            android:name=".sign_in"
-            android:exported="false" />
-        <activity
-            android:name=".sign_up"
-            android:exported="false"
-            android:theme="@style/Theme.PROG7312Part2ui" />
-        <activity
-            android:name=".MainActivity"
-            android:exported="true">
+            android:name=".SplashActivity"
+            android:exported="true"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-    </application>
 
+        <!-- Sign In Activity -->
+        <activity
+            android:name=".SignInActivity"
+            android:exported="false" />
+
+        <!-- Sign Up Activity -->
+        <activity
+            android:name=".SignUpActivity"
+            android:exported="false" />
+
+        <!-- Dashboard Activity -->
+        <activity
+            android:name=".DashboardActivity"
+            android:exported="false" />
+
+    </application>
 </manifest>
