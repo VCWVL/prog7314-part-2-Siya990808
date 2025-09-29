@@ -16,6 +16,9 @@ import androidx.core.content.ContextCompat
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
+import androidx.activity.result.contract.ActivityResultContracts
+import android.content.Intent
+
 
 class DashboardActivity : AppCompatActivity() {
 
@@ -28,6 +31,39 @@ class DashboardActivity : AppCompatActivity() {
     private lateinit var pendingTasksContainer: LinearLayout
     private var selectedDay = 2 // Default to day 2 (as shown in mockup)
     private val tasks = mutableListOf<Task>()
+
+
+    private val addTaskLauncher = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ) { result ->
+        if (result.resultCode == RESULT_OK) {
+            val data = result.data
+            val title = data?.getStringExtra("TASK_TITLE") ?: ""
+            val className = data?.getStringExtra("TASK_CLASS") ?: ""
+            val location = data?.getStringExtra("TASK_LOCATION") ?: ""
+            val description = data?.getStringExtra("TASK_DESCRIPTION") ?: ""
+            val isAllDay = data?.getBooleanExtra("TASK_ALL_DAY", false) ?: false
+            val isRecurring = data?.getBooleanExtra("TASK_RECURRING", false) ?: false
+            val startTime = data?.getLongExtra("TASK_START_TIME", 0L)
+            val endTime = data?.getLongExtra("TASK_END_TIME", 0L)
+
+            if (title.isNotEmpty()) {
+                val newTask = Task(
+                    id = System.currentTimeMillis().toString(),
+                    title = title,
+                    className = className,
+                    location = location,
+                    isAllDay = isAllDay,
+                    isRecurring = isRecurring
+                    // you can also extend Task to include description + times if you want
+                )
+                tasks.add(newTask)
+                updateTasksDisplay()
+            }
+        }
+    }
+
+
 
     data class Task(
         val id: String,
@@ -167,7 +203,8 @@ class DashboardActivity : AppCompatActivity() {
     private fun setupTodoListeners() {
         // Add task button functionality
         findViewById<ImageButton>(R.id.btn_add_task)?.setOnClickListener {
-            showAddTaskDialog()
+            val intent = Intent(this, AddTaskActivity::class.java)
+            addTaskLauncher.launch(intent)
         }
     }
 

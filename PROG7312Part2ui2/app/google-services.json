@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "550647954499",
+    "project_id": "studyhive-45135",
+    "storage_bucket": "studyhive-45135.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:550647954499:android:0f0243a4b1a48e7205a8f6",
+        "android_client_info": {
+          "package_name": "com.example.prog7312part2ui"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD8YdXS1yhr8zyEDA0sw9DXsx9PbtDBKLs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

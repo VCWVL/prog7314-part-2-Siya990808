@@ -36,5 +36,10 @@
             android:name=".DashboardActivity"
             android:exported="false" />
 
+        <activity
+            android:name=".AddTaskActivity"
+            android:exported="false" />
+
+
     </application>
 </manifest>

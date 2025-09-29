@@ -17,12 +17,12 @@
         android:background="?android:attr/selectableItemBackground">
 
         <ImageView
-            android:layout_width="32dp"
-            android:layout_height="32dp"
+            android:layout_width="wrap_content"
+            android:layout_height="65dp"
             android:layout_gravity="center"
-            android:src="@drawable/add_task_navbar_icon"
             android:contentDescription="Tasks"
-            android:scaleType="fitCenter" />
+            android:scaleType="fitCenter"
+            android:src="@drawable/add_task_navbar_icon" />
     </FrameLayout>
 
     <!-- Center Icon - Calendar with Circle Background -->
@@ -44,12 +44,12 @@
 
         <!-- Calendar icon on top of circle -->
         <ImageView
-            android:layout_width="28dp"
-            android:layout_height="28dp"
+            android:layout_width="104dp"
+            android:layout_height="45dp"
             android:layout_gravity="center"
-            android:src="@drawable/calander_icon"
             android:contentDescription="Calendar"
-            android:scaleType="fitCenter" />
+            android:scaleType="fitCenter"
+            android:src="@drawable/calander_icon" />
     </FrameLayout>
 
     <!-- Right Icon - Marketplace -->
@@ -63,12 +63,12 @@
         android:background="?android:attr/selectableItemBackground">
 
         <ImageView
-            android:layout_width="32dp"
-            android:layout_height="32dp"
+            android:layout_width="59dp"
+            android:layout_height="match_parent"
             android:layout_gravity="center"
-            android:src="@drawable/marketplace_icon"
             android:contentDescription="Marketplace"
-            android:scaleType="fitCenter" />
+            android:scaleType="fitCenter"
+            android:src="@drawable/marketplace_icon" />
     </FrameLayout>
 
 </LinearLayout>
