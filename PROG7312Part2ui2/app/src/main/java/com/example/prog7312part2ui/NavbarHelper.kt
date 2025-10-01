@@ -15,14 +15,14 @@ object NavbarHelper {
     fun setupNavbar(activity: AppCompatActivity, currentPage: NavbarPage) {
         val navbar = activity.findViewById<View>(R.id.navigation_bar) ?: return
 
-        // Notes/Documents icon (left)
+        // Notes icon (left)
         navbar.findViewById<View>(R.id.nav_tasks)?.setOnClickListener {
             if (currentPage != NavbarPage.NOTES) {
                 navigateToNotes(activity)
             }
         }
 
-        // Calendar icon (center) - This should go to Dashboard
+        // Calendar icon (center) - Dashboard
         navbar.findViewById<View>(R.id.nav_calendar)?.setOnClickListener {
             if (currentPage != NavbarPage.DASHBOARD) {
                 navigateToDashboard(activity)
@@ -47,7 +47,7 @@ object NavbarHelper {
     private fun navigateToDashboard(activity: Activity) {
         val intent = Intent(activity, DashboardActivity::class.java)
         activity.startActivity(intent)
-        activity.finish() // Remove current activity from stack
+        activity.finish()
     }
 
     private fun navigateToMarketplace(activity: Activity) {

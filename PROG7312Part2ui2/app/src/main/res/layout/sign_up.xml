@@ -6,10 +6,6 @@
     android:layout_height="match_parent"
     android:background="@android:color/white">
 
-    <!-- Logo - Independent positioning -->
-
-    <!-- Sign Up Title - Independent positioning -->
-
     <ImageView
         android:id="@+id/logo"
         android:layout_width="265dp"
@@ -33,7 +29,7 @@
         android:layout_marginStart="20dp"
         android:layout_marginTop="260dp" />
 
-    <!-- Email Label - Independent positioning -->
+    <!-- Email Label -->
     <TextView
         android:id="@+id/email_label"
         android:layout_width="wrap_content"
@@ -50,7 +46,7 @@
         android:layout_marginStart="20dp"
         android:layout_marginTop="308dp" />
 
-    <!-- Email Input Container - Independent positioning -->
+    <!-- Email Input Container -->
     <FrameLayout
         android:id="@+id/email_container"
         android:layout_width="359dp"
@@ -84,7 +80,7 @@
             android:textSize="16sp" />
     </FrameLayout>
 
-    <!-- Username Label - Independent positioning -->
+    <!-- Username Label -->
     <ImageView
         android:id="@+id/username_label"
         android:layout_width="wrap_content"
@@ -96,7 +92,7 @@
         android:layout_marginStart="20dp"
         android:layout_marginTop="408dp" />
 
-    <!-- Username Input Container - Independent positioning -->
+    <!-- Username Input Container -->
     <FrameLayout
         android:id="@+id/username_container"
         android:layout_width="359dp"
@@ -130,7 +126,7 @@
             android:textSize="16sp" />
     </FrameLayout>
 
-    <!-- Password Label - Independent positioning -->
+    <!-- Password Label -->
     <ImageView
         android:id="@+id/password_label"
         android:layout_width="wrap_content"
@@ -142,7 +138,7 @@
         android:layout_marginStart="20dp"
         android:layout_marginTop="508dp" />
 
-    <!-- Password Input Container - Independent positioning -->
+    <!-- Password Input Container -->
     <FrameLayout
         android:id="@+id/password_container"
         android:layout_width="359dp"
@@ -176,7 +172,7 @@
             android:textSize="16sp" />
     </FrameLayout>
 
-    <!-- Account Link - Independent positioning -->
+    <!-- Account Link -->
     <TextView
         android:id="@+id/account_link"
         android:layout_width="wrap_content"
@@ -196,7 +192,7 @@
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="608dp" />
 
-    <!-- Sign Up Button Container - Independent positioning -->
+    <!-- Sign Up Button Container -->
     <FrameLayout
         android:id="@+id/sign_up_button_container"
         android:layout_width="200dp"
@@ -229,7 +225,7 @@
             android:lineSpacingExtra="8sp" />
     </FrameLayout>
 
-    <!-- Or Sign Up Using Text - Independent positioning -->
+    <!-- Or Sign Up Using Text -->
     <ImageView
         android:id="@+id/or_sign_up_using"
         android:layout_width="wrap_content"
@@ -241,7 +237,7 @@
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="728dp" />
 
-    <!-- Google Icon Button - Independent positioning -->
+    <!-- Google Icon Button -->
     <ImageButton
         android:id="@+id/google_button"
         android:layout_width="50dp"
@@ -255,7 +251,7 @@
         android:layout_marginStart="155dp"
         android:layout_marginTop="768dp" />
 
-    <!-- GitHub Icon Button - Independent positioning -->
+    <!-- GitHub Icon Button -->
     <ImageButton
         android:id="@+id/github_button"
         android:layout_width="50dp"

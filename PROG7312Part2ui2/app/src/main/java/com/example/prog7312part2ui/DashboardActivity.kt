@@ -1,4 +1,4 @@
-package com.example.prog7312part2ui;
+package com.example.prog7312part2ui
 
 import android.graphics.Color
 import android.os.Bundle
@@ -16,9 +16,12 @@ import androidx.core.content.ContextCompat
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
-import androidx.activity.result.contract.ActivityResultContracts
 import android.content.Intent
-
+import androidx.activity.addCallback
+import androidx.activity.result.contract.ActivityResultContracts
+import com.example.prog7312part2ui.models.Task
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 
 class DashboardActivity : AppCompatActivity() {
 
@@ -29,52 +32,22 @@ class DashboardActivity : AppCompatActivity() {
     private lateinit var tasksScrollContainer: View
     private lateinit var completedTasksContainer: LinearLayout
     private lateinit var pendingTasksContainer: LinearLayout
-    private var selectedDay = 2 // Default to day 2 (as shown in mockup)
+    private lateinit var menuComponent: MenuComponent
+
+    private var selectedDay = 2 // Default to day 2
     private val tasks = mutableListOf<Task>()
 
+    // Firebase
+    private val db = FirebaseFirestore.getInstance()
+    private val auth = FirebaseAuth.getInstance()
 
     private val addTaskLauncher = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
     ) { result ->
         if (result.resultCode == RESULT_OK) {
-            val data = result.data
-            val title = data?.getStringExtra("TASK_TITLE") ?: ""
-            val className = data?.getStringExtra("TASK_CLASS") ?: ""
-            val location = data?.getStringExtra("TASK_LOCATION") ?: ""
-            val description = data?.getStringExtra("TASK_DESCRIPTION") ?: ""
-            val isAllDay = data?.getBooleanExtra("TASK_ALL_DAY", false) ?: false
-            val isRecurring = data?.getBooleanExtra("TASK_RECURRING", false) ?: false
-            val startTime = data?.getLongExtra("TASK_START_TIME", 0L)
-            val endTime = data?.getLongExtra("TASK_END_TIME", 0L)
-
-            if (title.isNotEmpty()) {
-                val newTask = Task(
-                    id = System.currentTimeMillis().toString(),
-                    title = title,
-                    className = className,
-                    location = location,
-                    isAllDay = isAllDay,
-                    isRecurring = isRecurring
-                    // you can also extend Task to include description + times if you want
-                )
-                tasks.add(newTask)
-                updateTasksDisplay()
-            }
+            // Do nothing — Firestore snapshot listener will update tasks automatically
         }
     }
-
-
-
-    data class Task(
-        val id: String,
-        val title: String,
-        val isCompleted: Boolean = false,
-        val subTasks: List<String> = emptyList(),
-        val className: String = "",
-        val location: String = "",
-        val isAllDay: Boolean = false,
-        val isRecurring: Boolean = false
-    )
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -83,10 +56,13 @@ class DashboardActivity : AppCompatActivity() {
         initializeViews()
         setupCalendar()
         setupTodoListeners()
-        updateTasksDisplay()
+        setupMenu()
+        setupBackPressHandler()
 
-        // Setup navbar - update the reference to bottom_navbar
-        val navbar = findViewById<View>(R.id.navigation_bar)
+        // Load tasks from Firestore
+        loadTasksFromFirestore()
+
+        // Setup navbar
         NavbarHelper.setupNavbar(this, NavbarPage.DASHBOARD)
     }
 
@@ -97,12 +73,12 @@ class DashboardActivity : AppCompatActivity() {
         tasksScrollContainer = findViewById(R.id.tasks_scroll_container)
         completedTasksContainer = findViewById(R.id.completed_tasks_container)
         pendingTasksContainer = findViewById(R.id.pending_tasks_container)
+        menuComponent = findViewById(R.id.menu_component)
 
         val prevMonth = findViewById<ImageButton>(R.id.btn_prev_month)
         val nextMonth = findViewById<ImageButton>(R.id.btn_next_month)
         val menuButton = findViewById<ImageButton>(R.id.menu_button)
 
-        // Set up month navigation
         prevMonth.setOnClickListener {
             currentCalendar.add(Calendar.MONTH, -1)
             updateCalendar()
@@ -113,14 +89,42 @@ class DashboardActivity : AppCompatActivity() {
             updateCalendar()
         }
 
-        // Menu button click
         menuButton.setOnClickListener {
-            // Handle menu click - you can implement drawer or menu here
+            menuComponent.toggleMenu()
         }
 
         currentCalendar = Calendar.getInstance()
-        // Set to August 2025 as shown in mockup
         currentCalendar.set(2025, Calendar.AUGUST, 1)
+    }
+
+    private fun setupMenu() {
+        menuComponent.onMenuItemClickListener = { menuItem ->
+            when (menuItem) {
+                MenuComponent.MenuItem.PROFILE -> showToast("Profile clicked")
+                MenuComponent.MenuItem.BOOKSHOP_MARKET -> showToast("Bookshop Market clicked")
+                MenuComponent.MenuItem.CALENDAR -> showToast("Calendar clicked")
+                MenuComponent.MenuItem.CALCULATOR -> showToast("Calculator clicked")
+                MenuComponent.MenuItem.CLASSROOMS -> showToast("Classrooms clicked")
+                MenuComponent.MenuItem.STUDY_HALL -> showToast("Study Hall clicked")
+                MenuComponent.MenuItem.STUDYHIVE_NEWS -> showToast("StudyHive News clicked")
+                MenuComponent.MenuItem.SETTINGS -> showToast("Settings clicked")
+                MenuComponent.MenuItem.SIGN_OUT -> handleSignOut()
+            }
+        }
+    }
+
+    private fun handleSignOut() {
+        AlertDialog.Builder(this)
+            .setTitle("Sign Out")
+            .setMessage("Are you sure you want to sign out?")
+            .setPositiveButton("Yes") { _, _ ->
+                val intent = Intent(this, SignInActivity::class.java)
+                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                startActivity(intent)
+                finish()
+            }
+            .setNegativeButton("No", null)
+            .show()
     }
 
     private fun setupCalendar() {
@@ -128,25 +132,20 @@ class DashboardActivity : AppCompatActivity() {
     }
 
     private fun updateCalendar() {
-        // Clear existing calendar days
         calendarGrid.removeAllViews()
 
-        // Update month/year display
         val monthFormat = SimpleDateFormat("MMMM yyyy", Locale.getDefault())
         monthYearText.text = monthFormat.format(currentCalendar.time)
 
-        // Get first day of month and number of days
         val tempCalendar = currentCalendar.clone() as Calendar
         tempCalendar.set(Calendar.DAY_OF_MONTH, 1)
-        val firstDayOfWeek = tempCalendar.get(Calendar.DAY_OF_WEEK) - 1 // 0-based
+        val firstDayOfWeek = tempCalendar.get(Calendar.DAY_OF_WEEK) - 1
         val daysInMonth = tempCalendar.getActualMaximum(Calendar.DAY_OF_MONTH)
 
-        // Add empty cells for days before month starts
         for (i in 0 until firstDayOfWeek) {
             addEmptyDay()
         }
 
-        // Add days of the month
         for (day in 1..daysInMonth) {
             addCalendarDay(day)
         }
@@ -168,13 +167,12 @@ class DashboardActivity : AppCompatActivity() {
     private fun addCalendarDay(day: Int) {
         val dayView = TextView(this).apply {
             text = day.toString()
-            setTextColor(Color.parseColor("#D4AF37")) // Golden yellow for dark background
+            setTextColor(Color.parseColor("#D4AF37"))
             textSize = 16f
             gravity = Gravity.CENTER
             setPadding(12, 12, 12, 12)
         }
 
-        // Set layout parameters
         val params = GridLayout.LayoutParams().apply {
             width = 0
             height = 80
@@ -183,74 +181,63 @@ class DashboardActivity : AppCompatActivity() {
         }
         dayView.layoutParams = params
 
-        // Highlight selected day (day 2 in mockup)
         if (day == selectedDay) {
             dayView.background = ContextCompat.getDrawable(this, R.drawable.calendar_day_selected)
-            dayView.setTextColor(Color.BLACK) // Black text on golden selected background
+            dayView.setTextColor(Color.BLACK)
         } else {
             dayView.background = ContextCompat.getDrawable(this, R.drawable.calendar_day_normal)
         }
 
-        // Set click listener for day selection
         dayView.setOnClickListener {
             selectedDay = day
-            updateCalendar() // Refresh to show new selection
+            updateCalendar()
         }
 
         calendarGrid.addView(dayView)
     }
 
     private fun setupTodoListeners() {
-        // Add task button functionality
         findViewById<ImageButton>(R.id.btn_add_task)?.setOnClickListener {
             val intent = Intent(this, AddTaskActivity::class.java)
             addTaskLauncher.launch(intent)
         }
     }
 
-    private fun showAddTaskDialog() {
-        val builder = AlertDialog.Builder(this)
-        builder.setTitle("Add New Task")
+    private fun loadTasksFromFirestore() {
+        val currentUser = auth.currentUser ?: return
 
-        val input = android.widget.EditText(this)
-        input.hint = "Enter task name"
-        builder.setView(input)
+        db.collection("users")
+            .document(currentUser.uid)
+            .collection("tasks")
+            .orderBy("createdAt")
+            .addSnapshotListener { snapshots, e ->
+                if (e != null) {
+                    showToast("Failed to load tasks: ${e.message}")
+                    return@addSnapshotListener
+                }
 
-        builder.setPositiveButton("Add") { _, _ ->
-            val taskTitle = input.text.toString().trim()
-            if (taskTitle.isNotEmpty()) {
-                val newTask = Task(
-                    id = System.currentTimeMillis().toString(),
-                    title = taskTitle,
-                    isCompleted = false
-                )
-                tasks.add(newTask)
-                updateTasksDisplay()
+                if (snapshots != null) {
+                    tasks.clear()
+                    for (doc in snapshots.documents) {
+                        val task = doc.toObject(Task::class.java)?.copy(id = doc.id)
+                        if (task != null) tasks.add(task)
+                    }
+                    updateTasksDisplay()
+                }
             }
-        }
-
-        builder.setNegativeButton("Cancel") { dialog, _ ->
-            dialog.cancel()
-        }
-
-        builder.show()
     }
 
     private fun updateTasksDisplay() {
         if (tasks.isEmpty()) {
-            // Show empty state
             emptyStateContainer.visibility = View.VISIBLE
             tasksScrollContainer.visibility = View.GONE
         } else {
-            // Show tasks
             emptyStateContainer.visibility = View.GONE
             tasksScrollContainer.visibility = View.VISIBLE
 
-            // Clear existing task views
             completedTasksContainer.removeAllViews()
             pendingTasksContainer.removeAllViews()
 
-            // Add tasks to appropriate containers
             tasks.forEach { task ->
                 if (task.isCompleted) {
                     addCompletedTaskView(task)
@@ -270,19 +257,15 @@ class DashboardActivity : AppCompatActivity() {
             layoutParams = LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT
-            ).apply {
-                bottomMargin = 8
-            }
+            ).apply { bottomMargin = 8 }
         }
 
-        // Animated checkmark
         val tickView = ImageView(this).apply {
             layoutParams = LinearLayout.LayoutParams(24, 24)
             setImageDrawable(ContextCompat.getDrawable(this@DashboardActivity, R.drawable.animated_checkmark))
             contentDescription = "Completed"
         }
 
-        // Task title
         val titleView = TextView(this).apply {
             text = task.title
             setTextColor(Color.WHITE)
@@ -306,30 +289,31 @@ class DashboardActivity : AppCompatActivity() {
             layoutParams = LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT
-            ).apply {
-                bottomMargin = 8
-            }
+            ).apply { bottomMargin = 8 }
         }
 
-        // Checkbox
         val checkbox = CheckBox(this).apply {
             buttonTintList = ContextCompat.getColorStateList(this@DashboardActivity, android.R.color.holo_orange_dark)
             setOnCheckedChangeListener { _, isChecked ->
                 if (isChecked) {
-                    // Mark task as completed
                     val taskIndex = tasks.indexOfFirst { it.id == task.id }
                     if (taskIndex != -1) {
-                        tasks[taskIndex] = task.copy(isCompleted = true)
-                        updateTasksDisplay()
+                        val updatedTask = task.copy(isCompleted = true)
 
-                        // Show completion animation (you can enhance this)
-                        showTaskCompletedMessage("${task.title} completed!")
+                        // Update Firestore
+                        val currentUser = auth.currentUser
+                        if (currentUser != null) {
+                            db.collection("users")
+                                .document(currentUser.uid)
+                                .collection("tasks")
+                                .document(task.id)
+                                .set(updatedTask)
+                        }
                     }
                 }
             }
         }
 
-        // Task title
         val titleView = TextView(this).apply {
             text = task.title
             setTextColor(Color.parseColor("#4A4A4A"))
@@ -344,8 +328,18 @@ class DashboardActivity : AppCompatActivity() {
         pendingTasksContainer.addView(taskLayout)
     }
 
-    private fun showTaskCompletedMessage(message: String) {
-        // Simple feedback - you can enhance with animations
+    private fun showToast(message: String) {
         android.widget.Toast.makeText(this, message, android.widget.Toast.LENGTH_SHORT).show()
+    }
+
+    private fun setupBackPressHandler() {
+        onBackPressedDispatcher.addCallback(this) {
+            if (menuComponent.isOpen()) {
+                menuComponent.closeMenu()
+            } else {
+                isEnabled = false
+                onBackPressedDispatcher.onBackPressed()
+            }
+        }
     }
 }

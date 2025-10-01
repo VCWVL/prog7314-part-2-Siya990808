@@ -1,5 +1,6 @@
 package com.example.prog7312part2ui
 
+import android.app.AlertDialog
 import android.app.TimePickerDialog
 import android.content.Intent
 import android.os.Bundle
@@ -11,6 +12,9 @@ import android.widget.Switch
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.prog7312part2ui.models.Task
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
@@ -29,6 +33,7 @@ class AddTaskActivity : AppCompatActivity() {
     private lateinit var timeContainer: View
     private lateinit var saveButton: Button
     private lateinit var cancelButton: Button
+    private lateinit var menuComponent: MenuComponent  // Add this
 
     private var startTimeCalendar = Calendar.getInstance()
     private var endTimeCalendar = Calendar.getInstance()
@@ -40,8 +45,9 @@ class AddTaskActivity : AppCompatActivity() {
         initializeViews()
         setupClickListeners()
         setupInitialTimes()
+        setupMenuComponent()
 
-        // Setup navbar
+        // navbar setup
         NavbarHelper.setupNavbar(this, NavbarPage.DASHBOARD)
     }
 
@@ -57,13 +63,66 @@ class AddTaskActivity : AppCompatActivity() {
         timeContainer = findViewById(R.id.time_container)
         saveButton = findViewById(R.id.save_button)
         cancelButton = findViewById(R.id.cancel_button)
+        menuComponent = findViewById(R.id.menu_component)
 
         val menuButton = findViewById<ImageButton>(R.id.menu_button)
 
-        // Menu button click
+        // Menu button click - toggle menu
         menuButton.setOnClickListener {
-            // Handle menu click
+            menuComponent.toggleMenu()
         }
+    }
+
+    private fun setupMenuComponent() {
+        menuComponent.onMenuItemClickListener = { menuItem ->
+            when (menuItem) {
+                MenuComponent.MenuItem.PROFILE -> {
+                    Toast.makeText(this, "Profile coming soon!", Toast.LENGTH_SHORT).show()
+                }
+                MenuComponent.MenuItem.BOOKSHOP_MARKET -> {
+                    Toast.makeText(this, "Bookshop Market coming soon!", Toast.LENGTH_SHORT).show()
+                }
+                MenuComponent.MenuItem.CALENDAR -> {
+                    // Go to Dashboard
+                    val intent = Intent(this, DashboardActivity::class.java)
+                    intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
+                    startActivity(intent)
+                    finish()
+                }
+                MenuComponent.MenuItem.CALCULATOR -> {
+                    Toast.makeText(this, "Calculator coming soon!", Toast.LENGTH_SHORT).show()
+                }
+                MenuComponent.MenuItem.CLASSROOMS -> {
+                    Toast.makeText(this, "Classrooms coming soon!", Toast.LENGTH_SHORT).show()
+                }
+                MenuComponent.MenuItem.STUDY_HALL -> {
+                    Toast.makeText(this, "Study Hall coming soon!", Toast.LENGTH_SHORT).show()
+                }
+                MenuComponent.MenuItem.STUDYHIVE_NEWS -> {
+                    Toast.makeText(this, "StudyHive News coming soon!", Toast.LENGTH_SHORT).show()
+                }
+                MenuComponent.MenuItem.SETTINGS -> {
+                    Toast.makeText(this, "Settings coming soon!", Toast.LENGTH_SHORT).show()
+                }
+                MenuComponent.MenuItem.SIGN_OUT -> {
+                    showSignOutConfirmation()
+                }
+            }
+        }
+    }
+
+    private fun showSignOutConfirmation() {
+        AlertDialog.Builder(this)
+            .setTitle("Sign Out")
+            .setMessage("Are you sure you want to sign out?")
+            .setPositiveButton("Yes") { _, _ ->
+                val intent = Intent(this, SignInActivity::class.java)
+                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                startActivity(intent)
+                finish()
+            }
+            .setNegativeButton("No", null)
+            .show()
     }
 
     private fun setupClickListeners() {
@@ -94,11 +153,11 @@ class AddTaskActivity : AppCompatActivity() {
     }
 
     private fun setupInitialTimes() {
-        // Set default start time (7:00 AM)
+        // default start time (7:00 AM)
         startTimeCalendar.set(Calendar.HOUR_OF_DAY, 7)
         startTimeCalendar.set(Calendar.MINUTE, 0)
 
-        // Set default end time (8:00 PM / 20:00)
+        // default end time (8:00 PM / 20:00)
         endTimeCalendar.set(Calendar.HOUR_OF_DAY, 20)
         endTimeCalendar.set(Calendar.MINUTE, 0)
 
@@ -119,7 +178,7 @@ class AddTaskActivity : AppCompatActivity() {
             },
             hour,
             minute,
-            false // Use 12-hour format
+            false
         )
 
         timePickerDialog.show()
@@ -139,37 +198,42 @@ class AddTaskActivity : AppCompatActivity() {
             return
         }
 
-        // Create task data
-        val taskData = TaskData(
-            title = title,
-            className = classInput.text.toString().trim(),
-            location = locationInput.text.toString().trim(),
-            description = descriptionInput.text.toString().trim(),
-            isAllDay = allDaySwitch.isChecked,
-            startTime = if (!allDaySwitch.isChecked) startTimeCalendar.time else null,
-            endTime = if (!allDaySwitch.isChecked) endTimeCalendar.time else null,
-            isRecurring = recurringSwitch.isChecked
-        )
-
-        // Pass task data back to dashboard
-        val resultIntent = Intent().apply {
-            putExtra("TASK_TITLE", taskData.title)
-            putExtra("TASK_CLASS", taskData.className)
-            putExtra("TASK_LOCATION", taskData.location)
-            putExtra("TASK_DESCRIPTION", taskData.description)
-            putExtra("TASK_ALL_DAY", taskData.isAllDay)
-            putExtra("TASK_RECURRING", taskData.isRecurring)
-            if (!taskData.isAllDay) {
-                putExtra("TASK_START_TIME", taskData.startTime?.time ?: 0L)
-                putExtra("TASK_END_TIME", taskData.endTime?.time ?: 0L)
-            }
+        val currentUser = FirebaseAuth.getInstance().currentUser
+        if (currentUser == null) {
+            Toast.makeText(this, "User not logged in", Toast.LENGTH_SHORT).show()
+            return
         }
 
-        setResult(RESULT_OK, resultIntent)
-        finish()
+        val userId = currentUser.uid
+        val db = FirebaseFirestore.getInstance()
 
-        Toast.makeText(this, "Task saved successfully!", Toast.LENGTH_SHORT).show()
+        // Build task data
+        val taskData = hashMapOf(
+            "title" to title,
+            "className" to classInput.text.toString().trim(),
+            "location" to locationInput.text.toString().trim(),
+            "description" to descriptionInput.text.toString().trim(),
+            "isAllDay" to allDaySwitch.isChecked,
+            "startTime" to if (!allDaySwitch.isChecked) startTimeCalendar.time else null,
+            "endTime" to if (!allDaySwitch.isChecked) endTimeCalendar.time else null,
+            "isRecurring" to recurringSwitch.isChecked,
+            "createdAt" to System.currentTimeMillis()
+        )
+
+        // Save task under user → users/{uid}/tasks/{taskId}
+        db.collection("users")
+            .document(userId)
+            .collection("tasks")
+            .add(taskData)  // Auto-generates taskId
+            .addOnSuccessListener {
+                Toast.makeText(this, "Task saved successfully!", Toast.LENGTH_SHORT).show()
+                finish()
+            }
+            .addOnFailureListener { e ->
+                Toast.makeText(this, "Error saving task: ${e.message}", Toast.LENGTH_SHORT).show()
+            }
     }
+
 
     data class TaskData(
         val title: String,

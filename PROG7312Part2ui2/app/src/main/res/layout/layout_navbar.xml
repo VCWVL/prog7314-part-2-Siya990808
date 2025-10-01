@@ -34,7 +34,7 @@
         android:clickable="true"
         android:focusable="true">
 
-        <!-- Black circle background - make sure this is visible -->
+        <!-- Black circle background -->
         <ImageView
             android:layout_width="50dp"
             android:layout_height="50dp"
@@ -42,7 +42,7 @@
             android:src="@drawable/black_circle_navbar"
             android:contentDescription="Calendar Background" />
 
-        <!-- Calendar icon on top of circle -->
+        <!-- Calendar icon -->
         <ImageView
             android:layout_width="104dp"
             android:layout_height="45dp"

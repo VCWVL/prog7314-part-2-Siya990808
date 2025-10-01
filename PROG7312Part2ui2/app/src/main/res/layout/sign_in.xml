@@ -8,8 +8,6 @@
 
     <!-- Logo -->
 
-    <!-- Sign In Title -->
-
     <ImageView
         android:id="@+id/logo"
         android:layout_width="265dp"
@@ -21,6 +19,8 @@
         app:layout_constraintHorizontal_bias="0.39"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Sign In Title -->
 
     <ImageView
         android:id="@+id/title_sign_in"

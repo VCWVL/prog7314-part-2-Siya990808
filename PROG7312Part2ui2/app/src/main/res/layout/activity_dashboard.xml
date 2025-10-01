@@ -1,299 +1,312 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@android:color/white"
-    android:fillViewport="true">
+    android:layout_height="match_parent">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <!-- Main Dashboard Content -->
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:background="@android:color/white"
-        android:paddingStart="20dp"
-        android:paddingTop="60dp"
-        android:paddingEnd="20dp"
-        android:paddingBottom="80dp">
+        android:fillViewport="true">
 
-        <!-- Top Bar with Menu, Title, and Spacer -->
-        <ImageButton
-            android:id="@+id/menu_button"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:background="@android:color/transparent"
-            android:src="@drawable/menu_icon"
-            android:contentDescription="Menu"
-            android:scaleType="fitCenter"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/app_title"
-            android:layout_width="wrap_content"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Study Hive"
-            android:textColor="#000000"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:background="@android:color/white"
+            android:paddingStart="20dp"
+            android:paddingTop="60dp"
+            android:paddingEnd="20dp"
+            android:paddingBottom="80dp">
 
-        <!-- Calendar Section with Original Dark Background -->
-        <LinearLayout
-            android:id="@+id/calendar_container"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
-            android:background="@drawable/calendar_background"
-            android:orientation="vertical"
-            android:padding="16dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/app_title">
+            <!-- Top Bar with Menu, Title, and Spacer -->
+            <ImageButton
+                android:id="@+id/menu_button"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:background="@android:color/transparent"
+                android:src="@drawable/menu_icon"
+                android:contentDescription="Menu"
+                android:scaleType="fitCenter"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-            <!-- Calendar Header -->
-            <LinearLayout
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/app_title"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
-                android:layout_marginBottom="16dp">
+                android:text="Study Hive"
+                android:textColor="#000000"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-                <TextView
-                    android:id="@+id/calendar_month_year"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="August 2025"
-                    android:textColor="#D4AF37"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
-
-                <ImageButton
-                    android:id="@+id/btn_prev_month"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:background="?android:attr/selectableItemBackground"
-                    android:src="@android:drawable/arrow_up_float"
-                    android:rotation="270"
-                    android:contentDescription="Previous Month"
-                    app:tint="#D4AF37" />
-
-                <ImageButton
-                    android:id="@+id/btn_next_month"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:background="?android:attr/selectableItemBackground"
-                    android:src="@android:drawable/arrow_up_float"
-                    android:rotation="90"
-                    android:contentDescription="Next Month"
-                    app:tint="#D4AF37" />
-            </LinearLayout>
-
-            <!-- Days of Week Header -->
+            <!-- Calendar Section with Dark Background -->
             <LinearLayout
-                android:layout_width="match_parent"
+                android:id="@+id/calendar_container"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginBottom="8dp">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="S"
-                    android:textColor="#D4AF37"
-                    android:textSize="14sp"
-                    android:textStyle="bold"
-                    android:gravity="center" />
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="M"
-                    android:textColor="#D4AF37"
-                    android:textSize="14sp"
-                    android:textStyle="bold"
-                    android:gravity="center" />
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="T"
-                    android:textColor="#D4AF37"
-                    android:textSize="14sp"
-                    android:textStyle="bold"
-                    android:gravity="center" />
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="W"
-                    android:textColor="#D4AF37"
-                    android:textSize="14sp"
-                    android:textStyle="bold"
-                    android:gravity="center" />
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="T"
-                    android:textColor="#D4AF37"
-                    android:textSize="14sp"
-                    android:textStyle="bold"
-                    android:gravity="center" />
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="F"
-                    android:textColor="#D4AF37"
-                    android:textSize="14sp"
-                    android:textStyle="bold"
-                    android:gravity="center" />
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="S"
-                    android:textColor="#D4AF37"
-                    android:textSize="14sp"
-                    android:textStyle="bold"
-                    android:gravity="center" />
-            </LinearLayout>
-
-            <!-- Calendar Grid -->
-            <GridLayout
-                android:id="@+id/calendar_grid"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:columnCount="7"
-                android:rowCount="6">
-
-                <!-- Calendar days will be added programmatically -->
-            </GridLayout>
-        </LinearLayout>
-
-        <!-- To Do Section with Original Yellow/Beige Background -->
-        <LinearLayout
-            android:id="@+id/todo_container"
-            android:layout_width="0dp"
-            android:layout_height="300dp"
-            android:layout_marginTop="24dp"
-            android:background="@drawable/todo_background"
-            android:orientation="vertical"
-            android:padding="20dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/calendar_container">
-
-            <!-- To Do Header with Add Button -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
-                android:layout_marginBottom="16dp">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="To Do:"
-                    android:textColor="#4A4A4A"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
-
-                <ImageButton
-                    android:id="@+id/btn_add_task"
-                    android:layout_width="32dp"
-                    android:layout_height="32dp"
-                    android:background="@android:color/transparent"
-                    android:src="@drawable/add_task_icon"
-                    android:contentDescription="Add Task"
-                    android:scaleType="fitCenter" />
-            </LinearLayout>
-
-            <!-- Empty State Container -->
-            <LinearLayout
-                android:id="@+id/empty_state_container"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
+                android:layout_marginTop="40dp"
+                android:background="@drawable/calendar_background"
                 android:orientation="vertical"
-                android:gravity="center"
-                android:visibility="visible">
+                android:padding="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/app_title">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="You have nothing to do"
-                    android:textColor="#8A8A8A"
-                    android:textSize="16sp"
-                    android:textStyle="italic"
-                    android:gravity="center" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:text="Tap + to add a new task"
-                    android:textColor="#AAAAAA"
-                    android:textSize="14sp"
-                    android:gravity="center" />
-            </LinearLayout>
-
-            <!-- Tasks Container (Initially Hidden) -->
-            <ScrollView
-                android:id="@+id/tasks_scroll_container"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:fillViewport="true"
-                android:visibility="gone">
-
+                <!-- Calendar Header -->
                 <LinearLayout
-                    android:id="@+id/tasks_container"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginBottom="16dp">
 
-                    <!-- Completed Tasks Container -->
-                    <LinearLayout
-                        android:id="@+id/completed_tasks_container"
-                        android:layout_width="match_parent"
+                    <TextView
+                        android:id="@+id/calendar_month_year"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:layout_marginBottom="16dp" />
+                        android:layout_weight="1"
+                        android:text="August 2025"
+                        android:textColor="#D4AF37"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
 
-                    <!-- Pending Tasks Container -->
-                    <LinearLayout
-                        android:id="@+id/pending_tasks_container"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical" />
+                    <ImageButton
+                        android:id="@+id/btn_prev_month"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:background="?android:attr/selectableItemBackground"
+                        android:src="@android:drawable/arrow_up_float"
+                        android:rotation="270"
+                        android:contentDescription="Previous Month"
+                        app:tint="#D4AF37" />
+
+                    <ImageButton
+                        android:id="@+id/btn_next_month"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:background="?android:attr/selectableItemBackground"
+                        android:src="@android:drawable/arrow_up_float"
+                        android:rotation="90"
+                        android:contentDescription="Next Month"
+                        app:tint="#D4AF37" />
                 </LinearLayout>
-            </ScrollView>
-        </LinearLayout>
 
-        <!-- Navigation Bar -->
-        <include
-            android:id="@+id/navigation_bar"
-            layout="@layout/layout_navbar"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="2dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/todo_container"
-            app:layout_constraintBottom_toBottomOf="parent" />
+                <!-- Days of Week Header -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="8dp">
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</ScrollView>
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="S"
+                        android:textColor="#D4AF37"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        android:gravity="center" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="M"
+                        android:textColor="#D4AF37"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        android:gravity="center" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="T"
+                        android:textColor="#D4AF37"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        android:gravity="center" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="W"
+                        android:textColor="#D4AF37"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        android:gravity="center" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="T"
+                        android:textColor="#D4AF37"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        android:gravity="center" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="F"
+                        android:textColor="#D4AF37"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        android:gravity="center" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="S"
+                        android:textColor="#D4AF37"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        android:gravity="center" />
+                </LinearLayout>
+
+                <!-- Calendar Grid -->
+                <GridLayout
+                    android:id="@+id/calendar_grid"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:columnCount="7"
+                    android:rowCount="6">
+
+                </GridLayout>
+            </LinearLayout>
+
+            <!-- To Do Section with Beige Background -->
+            <LinearLayout
+                android:id="@+id/todo_container"
+                android:layout_width="0dp"
+                android:layout_height="300dp"
+                android:layout_marginTop="24dp"
+                android:background="@drawable/todo_background"
+                android:orientation="vertical"
+                android:padding="20dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/calendar_container">
+
+                <!-- To Do Header with Add Button -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginBottom="16dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="To Do:"
+                        android:textColor="#4A4A4A"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <ImageButton
+                        android:id="@+id/btn_add_task"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:background="@android:color/transparent"
+                        android:src="@drawable/add_task_icon"
+                        android:contentDescription="Add Task"
+                        android:scaleType="fitCenter" />
+                </LinearLayout>
+
+                <!-- Empty State Container -->
+                <LinearLayout
+                    android:id="@+id/empty_state_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:visibility="visible">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="You have nothing to do"
+                        android:textColor="#8A8A8A"
+                        android:textSize="16sp"
+                        android:textStyle="italic"
+                        android:gravity="center" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text="Tap + to add a new task"
+                        android:textColor="#AAAAAA"
+                        android:textSize="14sp"
+                        android:gravity="center" />
+                </LinearLayout>
+
+                <!-- Tasks Container -->
+                <ScrollView
+                    android:id="@+id/tasks_scroll_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:fillViewport="true"
+                    android:visibility="gone">
+
+                    <LinearLayout
+                        android:id="@+id/tasks_container"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <!-- Completed Tasks Container -->
+                        <LinearLayout
+                            android:id="@+id/completed_tasks_container"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:layout_marginBottom="16dp" />
+
+                        <!-- Pending Tasks Container -->
+                        <LinearLayout
+                            android:id="@+id/pending_tasks_container"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical" />
+                    </LinearLayout>
+                </ScrollView>
+            </LinearLayout>
+
+            <!-- Navigation Bar -->
+            <include
+                android:id="@+id/navigation_bar"
+                layout="@layout/layout_navbar"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/todo_container"
+                app:layout_constraintBottom_toBottomOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+    <!-- Menu Component -->
+    <com.example.prog7312part2ui.MenuComponent
+        android:id="@+id/menu_component"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:elevation="10dp" />
+
+</FrameLayout>
