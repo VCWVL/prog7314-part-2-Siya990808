@@ -59,11 +59,11 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="32dp"
                 android:text="Add Task"
                 android:textColor="#000000"
                 android:textSize="20sp"
-                android:textStyle="bold"
-                android:layout_marginBottom="32dp" />
+                android:textStyle="bold" />
 
             <!-- Task Title Input -->
             <TextView

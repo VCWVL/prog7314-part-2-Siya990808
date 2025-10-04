@@ -45,7 +45,6 @@ class DashboardActivity : AppCompatActivity() {
         ActivityResultContracts.StartActivityForResult()
     ) { result ->
         if (result.resultCode == RESULT_OK) {
-            // Do nothing — Firestore snapshot listener will update tasks automatically
         }
     }
 
@@ -103,10 +102,20 @@ class DashboardActivity : AppCompatActivity() {
                 MenuComponent.MenuItem.PROFILE -> showToast("Profile clicked")
                 MenuComponent.MenuItem.BOOKSHOP_MARKET -> showToast("Bookshop Market clicked")
                 MenuComponent.MenuItem.CALENDAR -> showToast("Calendar clicked")
-                MenuComponent.MenuItem.CALCULATOR -> showToast("Calculator clicked")
-                MenuComponent.MenuItem.CLASSROOMS -> showToast("Classrooms clicked")
+                MenuComponent.MenuItem.CALCULATOR -> {
+                    val intent = Intent(this, CalculatorActivity::class.java)
+                    startActivity(intent)
+                }
+                MenuComponent.MenuItem.CLASSROOMS -> {
+                    val intent = Intent(this, ClassesActivity::class.java)
+                    startActivity(intent)
+                }
+
                 MenuComponent.MenuItem.STUDY_HALL -> showToast("Study Hall clicked")
-                MenuComponent.MenuItem.STUDYHIVE_NEWS -> showToast("StudyHive News clicked")
+                MenuComponent.MenuItem.STUDYHIVE_NEWS -> {
+                    val intent = Intent(this, NewsletterActivity::class.java)
+                    startActivity(intent)
+                }
                 MenuComponent.MenuItem.SETTINGS -> showToast("Settings clicked")
                 MenuComponent.MenuItem.SIGN_OUT -> handleSignOut()
             }

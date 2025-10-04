@@ -9,7 +9,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@android:color/white"
-        android:fillViewport="true">
+        android:fillViewport="true"
+        android:paddingBottom="65dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -18,7 +19,7 @@
             android:paddingStart="20dp"
             android:paddingTop="60dp"
             android:paddingEnd="20dp"
-            android:paddingBottom="80dp">
+            android:paddingBottom="20dp">
 
             <!-- Top Bar with Menu, Title, and Spacer -->
             <ImageButton
@@ -287,20 +288,16 @@
                 </ScrollView>
             </LinearLayout>
 
-            <!-- Navigation Bar -->
-            <include
-                android:id="@+id/navigation_bar"
-                layout="@layout/layout_navbar"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="2dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/todo_container"
-                app:layout_constraintBottom_toBottomOf="parent" />
-
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
+
+    <!-- Navigation Bar - Fixed at Bottom -->
+    <include
+        android:id="@+id/navigation_bar"
+        layout="@layout/layout_navbar"
+        android:layout_width="match_parent"
+        android:layout_height="65dp"
+        android:layout_gravity="bottom" />
 
     <!-- Menu Component -->
     <com.example.prog7312part2ui.MenuComponent

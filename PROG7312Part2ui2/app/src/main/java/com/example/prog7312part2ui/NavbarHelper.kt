@@ -38,10 +38,9 @@ object NavbarHelper {
     }
 
     private fun navigateToNotes(activity: Activity) {
-        // TODO: Create NotesActivity when ready
-        // val intent = Intent(activity, NotesActivity::class.java)
-        // activity.startActivity(intent)
-        android.widget.Toast.makeText(activity, "Notes coming soon!", android.widget.Toast.LENGTH_SHORT).show()
+        val intent = Intent(activity, NewsletterActivity::class.java)
+        activity.startActivity(intent)
+        activity.finish()
     }
 
     private fun navigateToDashboard(activity: Activity) {

@@ -40,6 +40,15 @@
             android:name=".AddTaskActivity"
             android:exported="false" />
 
+        <activity android:name=".ClassesActivity" />
+        <activity android:name=".AddClassActivity" />
+        <activity
+            android:name=".NewsletterActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".CalculatorActivity"
+            android:exported="false" />
 
     </application>
 </manifest>

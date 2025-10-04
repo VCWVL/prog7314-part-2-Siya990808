@@ -51,6 +51,7 @@ dependencies {
     implementation(libs.androidx.constraintlayout)
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
+    implementation("com.github.bumptech.glide:glide:4.16.0")
 
     // Firebase BoM
     implementation(platform("com.google.firebase:firebase-bom:32.2.0"))

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:background="@drawable/assignment_item_bg"
+    android:padding="12dp"
+    android:layout_marginBottom="8dp"
+    android:gravity="center_vertical">
+
+    <!-- Assignment Name -->
+    <TextView
+        android:id="@+id/assignmentName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="2"
+        android:text="Assignment 1"
+        android:textSize="14sp"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold" />
+
+    <!-- Grade Input -->
+    <EditText
+        android:id="@+id/gradeInput"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:layout_weight="1"
+        android:background="@drawable/input_small_bg"
+        android:hint="94%"
+        android:textColorHint="#999999"
+        android:textSize="12sp"
+        android:textColor="#000000"
+        android:gravity="center"
+        android:inputType="numberDecimal"
+        android:maxLength="5"
+        android:layout_marginHorizontal="4dp" />
+
+    <!-- Weight Input -->
+    <EditText
+        android:id="@+id/weightInput"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:layout_weight="1"
+        android:background="@drawable/input_small_bg"
+        android:hint="25%"
+        android:textColorHint="#999999"
+        android:textSize="12sp"
+        android:textColor="#000000"
+        android:gravity="center"
+        android:inputType="numberDecimal"
+        android:maxLength="5"
+        android:layout_marginStart="4dp" />
+
+</LinearLayout>

@@ -93,8 +93,10 @@ class AddTaskActivity : AppCompatActivity() {
                     Toast.makeText(this, "Calculator coming soon!", Toast.LENGTH_SHORT).show()
                 }
                 MenuComponent.MenuItem.CLASSROOMS -> {
-                    Toast.makeText(this, "Classrooms coming soon!", Toast.LENGTH_SHORT).show()
+                    val intent = Intent(this, ClassesActivity::class.java)
+                    startActivity(intent)
                 }
+
                 MenuComponent.MenuItem.STUDY_HALL -> {
                     Toast.makeText(this, "Study Hall coming soon!", Toast.LENGTH_SHORT).show()
                 }
